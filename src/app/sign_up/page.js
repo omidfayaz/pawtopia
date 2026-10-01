@@ -1,14 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { User, Building2, Eye, EyeOff, ArrowLeft } from "lucide-react";
+import { User, Building2, Eye, EyeOff } from "lucide-react";
+import Link from "next/link";
 import Navbar from "@/components/layout/navbar";
 import Footer from "@/components/layout/footer";
-import Link from "next/link";
 
-export default function LoginPage() {
-  const [activeTab, setActiveTab] = useState("owner"); // "owner" | "clinic"
+export default function SignupPage() {
+  const [activeTab, setActiveTab] = useState("owner");
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
 
   return (
     <>
@@ -20,8 +21,8 @@ export default function LoginPage() {
           {/* Header */}
           <div className="login-header">
             <span className="login-logo">🐾</span>
-            <h1 className="login-title">ورود به پاتوپیا</h1>
-            <p className="login-subtitle">خوش برگشتی! حساب خود را انتخاب کنید</p>
+            <h1 className="login-title">ثبت نام در پاتوپیا</h1>
+            <p className="login-subtitle">نوع حساب خود را انتخاب کنید</p>
           </div>
 
           {/* Tabs */}
@@ -45,6 +46,17 @@ export default function LoginPage() {
           {/* Form - Pet Owner */}
           {activeTab === "owner" && (
             <form className="login-form" onSubmit={(e) => e.preventDefault()}>
+              <div className="form-row-two">
+                <div className="form-group">
+                  <label className="form-label">نام</label>
+                  <input type="text" className="form-input" placeholder="علی" />
+                </div>
+                <div className="form-group">
+                  <label className="form-label">نام خانوادگی</label>
+                  <input type="text" className="form-input" placeholder="رضایی" />
+                </div>
+              </div>
+
               <div className="form-group">
                 <label className="form-label">شماره موبایل</label>
                 <input
@@ -61,7 +73,7 @@ export default function LoginPage() {
                   <input
                     type={showPassword ? "text" : "password"}
                     className="form-input"
-                    placeholder="رمز عبور خود را وارد کنید"
+                    placeholder="حداقل ۸ کاراکتر"
                   />
                   <button
                     type="button"
@@ -73,21 +85,38 @@ export default function LoginPage() {
                 </div>
               </div>
 
-              <div className="form-row">
-                <label className="checkbox-label">
-                  <input type="checkbox" />
-                  مرا به خاطر بسپار
-                </label>
-                <a href="#" className="form-link">فراموشی رمز عبور؟</a>
+              <div className="form-group">
+                <label className="form-label">تکرار رمز عبور</label>
+                <div className="input-wrapper">
+                  <input
+                    type={showConfirm ? "text" : "password"}
+                    className="form-input"
+                    placeholder="رمز عبور را دوباره وارد کنید"
+                  />
+                  <button
+                    type="button"
+                    className="input-icon-btn"
+                    onClick={() => setShowConfirm(!showConfirm)}
+                  >
+                    {showConfirm ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
+                </div>
               </div>
 
+              <label className="checkbox-label">
+                <input type="checkbox" />
+                <span>
+                  <a href="#" className="form-link">قوانین و مقررات</a> را خوانده‌ام و می‌پذیرم
+                </span>
+              </label>
+
               <button type="submit" className="btn-submit">
-                ورود به حساب
+                ثبت نام
               </button>
 
               <p className="form-footer-text">
-                حساب ندارید؟{" "}
-                <Link href="/sign_up" className="form-link">ثبت نام کنید</Link>
+                حساب دارید؟{" "}
+                <Link href="/login" className="form-link">وارد شوید</Link>
               </p>
             </form>
           )}
@@ -96,11 +125,37 @@ export default function LoginPage() {
           {activeTab === "clinic" && (
             <form className="login-form" onSubmit={(e) => e.preventDefault()}>
               <div className="form-group">
-                <label className="form-label">کد کلینیک یا ایمیل</label>
+                <label className="form-label">نام کلینیک</label>
+                <input type="text" className="form-input" placeholder="کلینیک دامپزشکی سبز" />
+              </div>
+
+              <div className="form-row-two">
+                <div className="form-group">
+                  <label className="form-label">نام مسئول</label>
+                  <input type="text" className="form-input" placeholder="دکتر احمدی" />
+                </div>
+                <div className="form-group">
+                  <label className="form-label">شماره نظام</label>
+                  <input type="text" className="form-input" placeholder="۱۲۳۴۵" dir="ltr" />
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label className="form-label">ایمیل</label>
                 <input
-                  type="text"
+                  type="email"
                   className="form-input"
                   placeholder="clinic@example.com"
+                  dir="ltr"
+                />
+              </div>
+
+              <div className="form-group">
+                <label className="form-label">شماره تماس کلینیک</label>
+                <input
+                  type="tel"
+                  className="form-input"
+                  placeholder="۰۲۱۱۲۳۴۵۶۷۸"
                   dir="ltr"
                 />
               </div>
@@ -111,7 +166,7 @@ export default function LoginPage() {
                   <input
                     type={showPassword ? "text" : "password"}
                     className="form-input"
-                    placeholder="رمز عبور خود را وارد کنید"
+                    placeholder="حداقل ۸ کاراکتر"
                   />
                   <button
                     type="button"
@@ -123,21 +178,38 @@ export default function LoginPage() {
                 </div>
               </div>
 
-              <div className="form-row">
-                <label className="checkbox-label">
-                  <input type="checkbox" />
-                  مرا به خاطر بسپار
-                </label>
-                <a href="#" className="form-link">فراموشی رمز عبور؟</a>
+              <div className="form-group">
+                <label className="form-label">تکرار رمز عبور</label>
+                <div className="input-wrapper">
+                  <input
+                    type={showConfirm ? "text" : "password"}
+                    className="form-input"
+                    placeholder="رمز عبور را دوباره وارد کنید"
+                  />
+                  <button
+                    type="button"
+                    className="input-icon-btn"
+                    onClick={() => setShowConfirm(!showConfirm)}
+                  >
+                    {showConfirm ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
+                </div>
               </div>
 
+              <label className="checkbox-label">
+                <input type="checkbox" />
+                <span>
+                  <a href="#" className="form-link">قوانین و مقررات</a> را خوانده‌ام و می‌پذیرم
+                </span>
+              </label>
+
               <button type="submit" className="btn-submit btn-submit-clinic">
-                ورود به پنل کلینیک
+                ثبت کلینیک
               </button>
 
               <p className="form-footer-text">
-                کلینیک ثبت نشده؟{" "}
-                <Link href="/sign_up" className="form-link">همین حالا ثبت کنید</Link>
+                قبلاً ثبت نام کردید؟{" "}
+                <Link href="/login" className="form-link">وارد شوید</Link>
               </p>
             </form>
           )}
@@ -160,7 +232,7 @@ export default function LoginPage() {
           border-radius: 24px;
           padding: 40px;
           width: 100%;
-          max-width: 440px;
+          max-width: 480px;
           box-shadow: 0 8px 40px rgba(10, 171, 156, 0.1);
           border: 1px solid var(--color-border);
           display: flex;
@@ -189,7 +261,6 @@ export default function LoginPage() {
           color: var(--color-text-muted);
         }
 
-        /* Tabs */
         .login-tabs {
           display: flex;
           background: var(--color-bg-soft);
@@ -221,11 +292,16 @@ export default function LoginPage() {
           box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
 
-        /* Form */
         .login-form {
           display: flex;
           flex-direction: column;
-          gap: 18px;
+          gap: 16px;
+        }
+
+        .form-row-two {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 12px;
         }
 
         .form-group {
@@ -253,19 +329,12 @@ export default function LoginPage() {
           outline: none;
         }
 
-        .form-input:focus {
-          border-color: var(--color-primary);
-        }
-
+        .form-input:focus { border-color: var(--color-primary); }
         .form-input::placeholder { color: #bbb; }
 
-        .input-wrapper {
-          position: relative;
-        }
+        .input-wrapper { position: relative; }
 
-        .input-wrapper .form-input {
-          padding-left: 42px;
-        }
+        .input-wrapper .form-input { padding-left: 42px; }
 
         .input-icon-btn {
           position: absolute;
@@ -297,6 +366,7 @@ export default function LoginPage() {
           font-size: 13px;
           color: #555;
           cursor: pointer;
+          line-height: 1.6;
         }
 
         .checkbox-label input[type="checkbox"] {
@@ -304,12 +374,13 @@ export default function LoginPage() {
           width: 15px;
           height: 15px;
           cursor: pointer;
+          flex-shrink: 0;
         }
 
         .form-link {
-          font-size: 13px;
           color: var(--color-primary);
           font-weight: 600;
+          font-size: 13px;
           transition: opacity 0.2s;
         }
 
@@ -331,10 +402,7 @@ export default function LoginPage() {
 
         .btn-submit:hover { background: var(--color-primary-dark); }
 
-        .btn-submit-clinic {
-          background: var(--color-accent);
-        }
-
+        .btn-submit-clinic { background: var(--color-accent); }
         .btn-submit-clinic:hover { background: var(--color-accent-hover); }
 
         .form-footer-text {
@@ -346,6 +414,7 @@ export default function LoginPage() {
         @media (max-width: 480px) {
           .login-card { padding: 28px 20px; }
           .login-tab { font-size: 12px; }
+          .form-row-two { grid-template-columns: 1fr; }
         }
       `}</style>
 

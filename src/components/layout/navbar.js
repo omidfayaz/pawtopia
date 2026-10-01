@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Navbar() {
   return (
     <nav className="navbar">
@@ -15,8 +17,8 @@ export default function Navbar() {
       </ul>
 
       <div className="navbar-actions">
-        <button className="btn-outline">ورود</button>
-        <button className="btn-primary">ثبت نام</button>
+        <Link href="/login" className="btn-outline">ورود</Link>
+        <Link href="/sign_up" className="btn-primary">ثبت نام</Link>
       </div>
     </nav>
   );
