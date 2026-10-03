@@ -1,36 +1,25 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Pawtopia frontend
 
-## Getting Started
+Next.js frontend for Pawtopia. Clinic code is grouped under `src/features/clinic`; route files stay small under `src/app/clinic`.
 
-First, run the development server:
+## Run locally
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. Start the ASP.NET API on `http://localhost:5232`.
+2. Run `npm ci` and `npm run dev` in this directory.
+3. Open `http://localhost:3000/clinic`.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+If the API uses another address, set `BACKEND_API_URL` before starting Next.js. The `/clinic-api/*` rewrite in `next.config.mjs` forwards requests to the API, so the browser does not need cross-origin access.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Clinic routes
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `/clinic`: daily overview for clinic staff and vets.
+- `/clinic/appointments`: appointment list, filters, details, and confirmation for authorized clinic staff.
+- `/clinic/management`: manager dashboard for clinic Owner and Manager roles.
 
-## Learn More
+The clinic area signs in through `POST /api/auth/login`, selects a clinic through the API, and uses the returned access token for protected requests. Existing `/login` and `/sign_up` pages are unchanged. A staff or vet account and active clinic membership must already exist in the backend.
 
-To learn more about Next.js, take a look at the following resources:
+Manager figures come from clinic appointments, vets, and members API responses. Daily labels use Tehran time. Seven and thirty-day summaries include today and the preceding days. The completion rate uses non-cancelled appointments scheduled before today within the selected window. No revenue or check-in figures are shown because the current API does not supply them.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The backend currently lets pet owners create appointments and lets clinic Owners, Managers, and Secretaries confirm pending appointments. It has no secretary booking or walk-in check-in endpoint yet. For a larger appointment history, add server-side date range and pagination before relying on full-history client filtering.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Run `npm run lint` and `npm run build` before handing off a change.
