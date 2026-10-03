@@ -1,6 +1,7 @@
 import { Bell, Calendar, FileText, Building2 } from "lucide-react";
 import Navbar from "@/components/layout/navbar";
 import Footer from "@/components/layout/footer";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -26,10 +27,10 @@ export default function Home() {
             <button className="btn-hero-primary">
               شروع رایگان ←
             </button>
-            <button className="btn-hero-secondary">
+            <Link href="/clinic" className="btn-hero-secondary">
               <Building2 size={24} />
               پنل کلینیک
-            </button>
+            </Link>
           </div>
 
           <div className="hero-social-proof">

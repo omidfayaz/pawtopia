@@ -3,15 +3,15 @@ import Link from "next/link";
 export default function Navbar() {
   return (
     <nav className="navbar">
-      <a href="/" className="navbar-logo">
+      <Link href="/" className="navbar-logo">
         <span>🐾</span>
         پاتوپیا
-      </a>
+      </Link>
 
       <ul className="navbar-links">
-        <li><a href="/" className="active">صفحه اصلی</a></li>
+        <li><Link href="/" className="active">صفحه اصلی</Link></li>
         <li><a href="#">خدمات</a></li>
-        <li><a href="#">برای کلینیک‌ها</a></li>
+        <li><Link href="/clinic">برای کلینیک‌ها</Link></li>
         <li><a href="#">وبلاگ</a></li>
         <li><a href="#">درباره ما</a></li>
       </ul>
